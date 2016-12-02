@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="string_array_name">
+        <item>Add book</item>
+        <item>Remove book</item>
+        <item>Books of one author</item>
+        <item>Change my evaluation</item>
+        <item>Help</item>
+        <item>Exit</item>
+    </string-array>
+</resources>

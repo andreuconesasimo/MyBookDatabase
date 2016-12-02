@@ -2,61 +2,50 @@ package com.example.pr_idi.mydatabaseexample;
 
 
 import java.util.List;
-import java.util.Random;
-
-import android.app.ListActivity;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends Activity {
     private BookData bookData;
+    private String[] options;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ListView titlesListView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        // inicialitzar menu lateral
+        options = getResources().getStringArray(R.array.string_array_name);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.menu_list);
+        // Set the adapter for the list view
+        DrawerAdapter adp = new DrawerAdapter(this,R.layout.drawer_list_item,options);
+        mDrawerList.setAdapter(adp);
+
         bookData = new BookData(this);
         bookData.open();
-
         List<Book> values = bookData.getAllBooks();
-
-        // use the SimpleCursorAdapter to show the
-        // elements in a ListView
-        ArrayAdapter<Book> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);
+        titlesListView = (ListView) findViewById(R.id.books_list);
+        MenuAdapter adapter = new MenuAdapter(this, R.layout.list_view_row_item, values);
+        //set the adapter
+        titlesListView.setAdapter(adapter);
     }
-
-    // Basic method to add pseudo-random list of books so that
-    // you have an example of insertion and deletion
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
     public void onClick(View view) {
-        @SuppressWarnings("unchecked")
+        /*@SuppressWarnings("unchecked")
         ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) getListAdapter();
         Book book;
-        switch (view.getId()) {
-            case R.id.add:
-                String[] newBook = new String[] { "Miguel Strogoff", "Jules Verne", "Ulysses", "James Joyce", "Don Quijote", "Miguel de Cervantes", "Metamorphosis", "Kafka" };
-                int nextInt = new Random().nextInt(4);
-                // save the new book to the database
-                book = bookData.createBook(newBook[nextInt*2], newBook[nextInt*2 + 1]);
-
-                // After I get the book data, I add it to the adapter
-                adapter.add(book);
-                break;
-            case R.id.delete:
-                if (getListAdapter().getCount() > 0) {
-                    book = (Book) getListAdapter().getItem(0);
-                    bookData.deleteBook(book);
-                    adapter.remove(book);
-                }
-                break;
-        }
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
@@ -74,5 +63,10 @@ public class MainActivity extends ListActivity {
         bookData.close();
         super.onPause();
     }
-
+    public void getBookInfo(View view){
+        Button b = (Button)view;
+        String buttonText = b.getText().toString();
+        Toast toast = Toast.makeText(this, buttonText, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 }

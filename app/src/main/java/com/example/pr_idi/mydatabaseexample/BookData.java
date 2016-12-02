@@ -5,6 +5,8 @@ package com.example.pr_idi.mydatabaseexample;
  * Created by pr_idi on 10/11/16.
  */
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -97,6 +99,14 @@ public class BookData {
         }
         // make sure to close the cursor
         cursor.close();
+
+        Collections.sort(books,new Comparator<Book>() {
+
+            public int compare(Book b1, Book b2) {
+                return b1.getTitle().compareTo(b2.getTitle());
+            }
+        });
+
         return books;
     }
 
