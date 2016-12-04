@@ -56,8 +56,8 @@ public class DrawerAdapter extends ArrayAdapter<String> {
                 id = R.drawable.ic_help_black_24dp;
                 imatge.setImageResource(id);
             break;
-            case "Exit":
-                id = R.drawable.ic_exit_to_app_black_24dp;
+            case "About":
+                id = R.drawable.ic_info_black_24dp;
                 imatge.setImageResource(id);
             break;
         }
