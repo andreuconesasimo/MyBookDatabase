@@ -26,7 +26,9 @@ public class BookData {
 
     // Here we only select Title and Author, must select the appropriate columns
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
-            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_AUTHOR};
+            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_AUTHOR, MySQLiteHelper.COLUMN_PUBLISHER, MySQLiteHelper.COLUMN_YEAR, MySQLiteHelper.COLUMN_CATEGORY, MySQLiteHelper.COLUMN_PERSONAL_EVALUATION};
+
+    private String[] authorColumn = {MySQLiteHelper.COLUMN_AUTHOR};
 
     public BookData(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -100,7 +102,7 @@ public class BookData {
         // make sure to close the cursor
         cursor.close();
 
-        Collections.sort(books,new Comparator<Book>() {
+        Collections.sort(books, new Comparator<Book>() {
 
             public int compare(Book b1, Book b2) {
                 return b1.getTitle().compareTo(b2.getTitle());
@@ -110,11 +112,58 @@ public class BookData {
         return books;
     }
 
+    public List<String> getAllAuthors(){
+        List<String> authors = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
+                authorColumn, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            // AQUEST IF EVITA REPETICIONS --------- PPODRIA FER DISTINCT A LA QUERY________________
+            if (!authors.contains(cursor.getString(0))) {
+                authors.add(cursor.getString(0));
+            }
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+
+        return authors;
+    }
+
     private Book cursorToBook(Cursor cursor) {
         Book book = new Book();
         book.setId(cursor.getLong(0));
         book.setTitle(cursor.getString(1));
         book.setAuthor(cursor.getString(2));
+        book.setPublisher(cursor.getString(3));
+        book.setYear(Integer.parseInt(cursor.getString(4)));
+        book.setCategory(cursor.getString(5));
+        book.setPersonal_evaluation(cursor.getString(6));
         return book;
+    }
+
+    public List<Book> getBooksPerAuthor(String author) {
+        List<Book> books = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
+                allColumns, MySQLiteHelper.COLUMN_AUTHOR + " = '" + author+"'", null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Book book = cursorToBook(cursor);
+            books.add(book);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+
+        Collections.sort(books, new Comparator<Book>() {
+
+            public int compare(Book b1, Book b2) {
+                return b1.getTitle().compareTo(b2.getTitle());
+            }
+        });
+
+        return books;
     }
 }

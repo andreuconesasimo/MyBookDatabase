@@ -36,6 +36,10 @@ public class DrawerAdapter extends ArrayAdapter<String> {
         ImageView imatge = (ImageView) convertView.findViewById(R.id.menu_image);
         int id;
         switch (text){
+            case "Home":
+                id = R.drawable.ic_home_black_24dp;
+                imatge.setImageResource(id);
+                break;
             case "Add book":
                 id = R.drawable.ic_add_circle_black_24dp;
                 imatge.setImageResource(id);

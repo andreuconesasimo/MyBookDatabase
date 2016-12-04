@@ -52,31 +52,44 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1915);
         values.put(COLUMN_PUBLISHER, "Kurt Wolff");
         values.put(COLUMN_CATEGORY, "Novela");
+        values.put(COLUMN_PERSONAL_EVALUATION,"Historia inquietante, fantastica y profunda");
         // Insert the new row, returning the primary key value of the new row
         long newRowId = database.insert(TABLE_BOOKS, null, values);
+
         values = new ContentValues();
         values.put(COLUMN_TITLE, "Don Quijote");
         values.put(COLUMN_AUTHOR, "Miguel de Cervantes");
         values.put(COLUMN_YEAR, 1605);
         values.put(COLUMN_PUBLISHER, "Francisco de Robles");
         values.put(COLUMN_CATEGORY, "Aventura");
-        // Insert the new row, returning the primary key value of the new row
+        values.put(COLUMN_PERSONAL_EVALUATION,"Muy entretenido");
         newRowId = database.insert(TABLE_BOOKS, null, values);
+
         values = new ContentValues();
         values.put(COLUMN_TITLE, "Ulysses");
         values.put(COLUMN_AUTHOR, "James Joyce");
         values.put(COLUMN_YEAR, 1922);
         values.put(COLUMN_PUBLISHER, "Sylvia Beach");
         values.put(COLUMN_CATEGORY, "Novela");
-        // Insert the new row, returning the primary key value of the new row
+        values.put(COLUMN_PERSONAL_EVALUATION,"Pasable");
         newRowId = database.insert(TABLE_BOOKS, null, values);
+
         values = new ContentValues();
         values.put(COLUMN_TITLE, "Miguel Strogoff");
         values.put(COLUMN_AUTHOR, "Jules Verne");
         values.put(COLUMN_YEAR, 1876);
         values.put(COLUMN_PUBLISHER, "Pierre-Jules Hetzel");
         values.put(COLUMN_CATEGORY, "Guerra");
-        // Insert the new row, returning the primary key value of the new row
+        values.put(COLUMN_PERSONAL_EVALUATION,"Demasiado explicita");
+        newRowId = database.insert(TABLE_BOOKS, null, values);
+
+        values = new ContentValues();
+        values.put(COLUMN_TITLE, "El proceso");
+        values.put(COLUMN_AUTHOR, "Kafka");
+        values.put(COLUMN_YEAR, 1925);
+        values.put(COLUMN_PUBLISHER, "Verlag Die Schmiede");
+        values.put(COLUMN_CATEGORY, "Filosofia");
+        values.put(COLUMN_PERSONAL_EVALUATION,"Muy interesante i predictiva sobre las catastrofes venideras");
         newRowId = database.insert(TABLE_BOOKS, null, values);
     }
 
