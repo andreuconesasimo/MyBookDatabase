@@ -202,4 +202,10 @@ public class BookData {
 
         return evaluation;
     }
+
+    public void updateBookEvaluation(long bookId, String evaluationText) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION,evaluationText);
+        database.update(MySQLiteHelper.TABLE_BOOKS,values,MySQLiteHelper.COLUMN_ID + " = " + bookId,null);
+    }
 }

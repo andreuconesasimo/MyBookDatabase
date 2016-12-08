@@ -4,15 +4,13 @@ package com.example.pr_idi.mydatabaseexample;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import android.content.DialogInterface;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout booksAuthorFrame;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
+    private EditText et;
+    private long bookId;
 
     View booksExpandableView;
 
@@ -251,6 +251,8 @@ public class MainActivity extends AppCompatActivity {
             EditText evaluation = (EditText) findViewById(R.id.text_area_evaluation);
             String eva = bookData.getEvaluation(view.getId());
             evaluation.setText(eva);
+            et = evaluation;
+            bookId = view.getId();
         }
 
         @Override
@@ -295,27 +297,15 @@ public class MainActivity extends AppCompatActivity {
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
-    public void saveEvaluation(View view) {
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.save_book:
+                SampleDialog sd = SampleDialog.newInstance("Alert dialog",et.getText().toString(),bookId);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                sd.show(transaction,"Alert");
+                break;
+        }
 
-        new AlertDialog.Builder(this)
-                .setTitle("Change personal evaluation")
-                .setMessage("Do you really want to change your evaluation?")
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        Toast.makeText(MainActivity.this, "Yaay", Toast.LENGTH_SHORT).show();
-                        /*
-
-                        AQUI VA EL CODI QUAN CLIQUEN A YES
-                        NECESSITARE EL ID DEL SPINNER..........................
-                        I EL TEXT DEL EDITTEXT
-                        AVIAM COM ELS ACONSEGUEIXO....
-                        PROVAR AMB LA VISTA QUE MARRIBA COM A PARAMETRE
-
-                         */
-                    }})
-                .setNegativeButton(android.R.string.no, null).show();
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
