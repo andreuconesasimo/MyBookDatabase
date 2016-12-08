@@ -1,3 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        is-multidex="true"
+        jar="C:\Users\Andreu\AppData\Local\Android\sdk1\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-22.2.1_d1558f0b84f88ec8556d4cd7e6b643cd282f779d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-22.2.1_4995dcbb78ad09c3b99a259377d6abd58caf40a0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.1_08ab22513aeb4b7efbc0810cc7025f28035a4597\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="0de134ceb2bde37402db96fd834990419b1cb9ad">
+        <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_950beaf4e483a370ec7758ed39f39ef4208dad44\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-22.2.1_b215c2b7ba286e7a120c35793812524516280739\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="3b670d175c0dcb3c04f6f1cdc8ac2ed549d5b895">
+        <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_6144400beeff2858704dea432af335dc6f023ad9\classes.dex" />
+    </item>
+
+</items>

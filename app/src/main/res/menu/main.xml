@@ -6,6 +6,7 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_white_24dp"
         android:title="Buscar"
-        yourapp:showAsAction="ifRoom"/>
+        yourapp:showAsAction="ifRoom"
+        />
 
 </menu>

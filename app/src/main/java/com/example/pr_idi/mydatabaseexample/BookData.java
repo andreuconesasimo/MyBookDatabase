@@ -29,6 +29,9 @@ public class BookData {
             MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_AUTHOR, MySQLiteHelper.COLUMN_PUBLISHER, MySQLiteHelper.COLUMN_YEAR, MySQLiteHelper.COLUMN_CATEGORY, MySQLiteHelper.COLUMN_PERSONAL_EVALUATION};
 
     private String[] authorColumn = {MySQLiteHelper.COLUMN_AUTHOR};
+    private String[] titleColumn = {MySQLiteHelper.COLUMN_TITLE};
+    private String[] personalEvaluation = {MySQLiteHelper.COLUMN_PERSONAL_EVALUATION};
+    private List<String> allTitles;
 
     public BookData(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -127,7 +130,7 @@ public class BookData {
         }
         // make sure to close the cursor
         cursor.close();
-
+        Collections.sort(authors);
         return authors;
     }
 
@@ -165,5 +168,38 @@ public class BookData {
         });
 
         return books;
+    }
+
+    public List<String> getAllTitles() {
+
+        List<String> titles = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
+                titleColumn, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            // AQUEST IF EVITA REPETICIONS --------- PPODRIA FER DISTINCT A LA QUERY________________
+            if (!titles.contains(cursor.getString(0))) {
+                titles.add(cursor.getString(0));
+            }
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        Collections.sort(titles);
+        return titles;
+    }
+
+    public String getEvaluation(long id) {
+        String evaluation;
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
+                personalEvaluation, MySQLiteHelper.COLUMN_ID + " = '" + id +"'", null, null, null, null);
+
+        cursor.moveToFirst();
+        evaluation = cursor.getString(0);
+        // make sure to close the cursor
+        cursor.close();
+
+        return evaluation;
     }
 }

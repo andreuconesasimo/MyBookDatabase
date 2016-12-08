@@ -15,12 +15,12 @@ android:padding="10dp" >
     android:layout_height="30dp"
     android:layout_alignParentTop="true"
     android:text="Item name here..."
-    android:textSize="15dp"
+    android:textSize="20dp"
     android:textStyle="bold"
     android:textAlignment="center"
     android:background="@drawable/listgrad"
     android:layout_gravity="center_vertical"
-    android:textColor="#000000"
+    android:textColor="#FFFFFF"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:onClick="getBookInfo"
@@ -29,14 +29,18 @@ android:padding="10dp" >
     android:id="@+id/edit_book"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/ic_edit_black_24dp"
+    android:background="@null"
+    android:src="@drawable/ic_edit_blue_24dp"
+    android:onClick="onClick"
     />
 
 <ImageButton
     android:id="@+id/delete_book"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/ic_delete_black_24dp"
+    android:background="@null"
+    android:src="@drawable/ic_delete_red_24dp"
+    android:onClick="onClick"
     />
 </TableRow>
     </TableLayout>

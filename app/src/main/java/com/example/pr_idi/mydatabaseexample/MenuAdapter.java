@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+
 import java.util.List;
 
 /**
@@ -38,7 +40,12 @@ public class MenuAdapter extends ArrayAdapter<Book> {
         Button button = (Button) convertView.findViewById(R.id.title_button);
         button.setText(book.getTitle());
         button.setTag(book.getId());
+        button.setOnTouchListener(new ButtonHighlighterOnTouchListener(button));
 
+        ImageButton editButton = (ImageButton) convertView.findViewById(R.id.edit_book);
+        editButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(editButton));
+        ImageButton deleteButton = (ImageButton) convertView.findViewById(R.id.delete_book);
+        deleteButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(deleteButton));
         return convertView;
     }
 }

@@ -4,21 +4,27 @@ package com.example.pr_idi.mydatabaseexample;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -33,11 +39,13 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private CharSequence mTitle;
     private View booksAuthorView;
+    private View changeEvaluationView;
     private FrameLayout booksAuthorFrame;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
 
     View booksExpandableView;
+
     private ArrayAdapter<String> dataAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,11 +60,13 @@ public class MainActivity extends AppCompatActivity {
         options = getResources().getStringArray(R.array.string_array_name);
         this.mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         this.mDrawerList = (ListView) findViewById(R.id.menu_list);
+
         // Set the adapter for the list view
         DrawerAdapter adp = new DrawerAdapter(this,R.layout.drawer_list_item, options);
         mDrawerList.setAdapter(adp);
         this.mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0288D1")));
+        getSupportActionBar().setTitle("Home");
 
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_menu_white_24dp, R.string.open_drawer,
@@ -98,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
         MenuAdapter adapter2 = new MenuAdapter(this, R.layout.list_view_row_item, values);
         //set the adapter
         titlesListView.setAdapter(adapter2);
-        FrameLayout frame = (FrameLayout) findViewById(R.id.content_frame);
-        frame.addView(v);
+        booksAuthorFrame.addView(v);
         bookData.close();
     }
 
@@ -200,6 +209,28 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case "Change my evaluation":
+                booksAuthorFrame.removeAllViews();
+                // OMPLIR SPINNER
+                bookData.open();
+                //List<String> titles = bookData.getAllTitles();
+                List<Book> books = bookData.getAllBooks();
+                LayoutInflater inflater3 = getLayoutInflater();
+                changeEvaluationView = inflater3.inflate(R.layout.change_evaluation_view, null);
+                Spinner spinner2 = (Spinner) changeEvaluationView.findViewById(R.id.spinner_evaluation);
+
+                SpinnerAdapter adp = new SpinnerAdapter(this,R.layout.spinner_row_item,books);
+                adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner2.setAdapter(adp);
+
+                //dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, titles);
+                // Drop down layout style - list view with radio button
+                //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                // attaching data adapter to spinner
+                // SET SPINNER SELECTED LISTENER
+                spinner2.setOnItemSelectedListener(new SpinnerChangeEvaluationItemSelectedListener());
+                ImageButton imageButton = (ImageButton) changeEvaluationView.findViewById(R.id.save_book);
+                imageButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(imageButton));
+                booksAuthorFrame.addView(changeEvaluationView);
                 break;
             case "Help":
                 break;
@@ -211,6 +242,21 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setItemChecked(position, true);
         mTitle = opcioMenu;
         mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    private class SpinnerChangeEvaluationItemSelectedListener implements Spinner.OnItemSelectedListener{
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            EditText evaluation = (EditText) findViewById(R.id.text_area_evaluation);
+            String eva = bookData.getEvaluation(view.getId());
+            evaluation.setText(eva);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
     }
 
     private class SpinnerItemSelectedListener implements Spinner.OnItemSelectedListener {
@@ -249,11 +295,27 @@ public class MainActivity extends AppCompatActivity {
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
-    public void onClick(View view) {
-        /*@SuppressWarnings("unchecked")
-        ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) getListAdapter();
-        Book book;
-        adapter.notifyDataSetChanged();*/
+    public void saveEvaluation(View view) {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Change personal evaluation")
+                .setMessage("Do you really want to change your evaluation?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Toast.makeText(MainActivity.this, "Yaay", Toast.LENGTH_SHORT).show();
+                        /*
+
+                        AQUI VA EL CODI QUAN CLIQUEN A YES
+                        NECESSITARE EL ID DEL SPINNER..........................
+                        I EL TEXT DEL EDITTEXT
+                        AVIAM COM ELS ACONSEGUEIXO....
+                        PROVAR AMB LA VISTA QUE MARRIBA COM A PARAMETRE
+
+                         */
+                    }})
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
