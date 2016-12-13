@@ -170,26 +170,6 @@ public class BookData {
         return books;
     }
 
-    public List<String> getAllTitles() {
-
-        List<String> titles = new ArrayList<>();
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
-                titleColumn, null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            // AQUEST IF EVITA REPETICIONS --------- PPODRIA FER DISTINCT A LA QUERY________________
-            if (!titles.contains(cursor.getString(0))) {
-                titles.add(cursor.getString(0));
-            }
-            cursor.moveToNext();
-        }
-        // make sure to close the cursor
-        cursor.close();
-        Collections.sort(titles);
-        return titles;
-    }
-
     public String getEvaluation(long id) {
         String evaluation;
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
@@ -203,9 +183,21 @@ public class BookData {
         return evaluation;
     }
 
-    public void updateBookEvaluation(long bookId, String evaluationText) {
+    public int updateBookEvaluation(long bookId, String evaluationText) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION,evaluationText);
-        database.update(MySQLiteHelper.TABLE_BOOKS,values,MySQLiteHelper.COLUMN_ID + " = " + bookId,null);
+        int rowsAffected = database.update(MySQLiteHelper.TABLE_BOOKS,values,MySQLiteHelper.COLUMN_ID + " = " + bookId,null);
+        return rowsAffected;
+    }
+
+    public Book getBook(long bookId) {
+        Book book;
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
+                allColumns, MySQLiteHelper.COLUMN_ID + " = " + bookId , null, null, null, null);
+
+        cursor.moveToFirst();
+        book = cursorToBook(cursor);
+        cursor.close();
+        return book;
     }
 }

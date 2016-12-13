@@ -39,13 +39,15 @@ public class MenuAdapter extends ArrayAdapter<Book> {
         // get the TextView and then set the text (item name) and tag (item ID) values
         Button button = (Button) convertView.findViewById(R.id.title_button);
         button.setText(book.getTitle());
-        button.setTag(book.getId());
+        button.setId((int) book.getId());
         button.setOnTouchListener(new ButtonHighlighterOnTouchListener(button));
 
         ImageButton editButton = (ImageButton) convertView.findViewById(R.id.edit_book);
         editButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(editButton));
+        editButton.setId((int) book.getId());
         ImageButton deleteButton = (ImageButton) convertView.findViewById(R.id.delete_book);
         deleteButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(deleteButton));
+        deleteButton.setId((int) book.getId());
         return convertView;
     }
 }

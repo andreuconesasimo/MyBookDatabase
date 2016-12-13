@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         this.mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         this.mDrawerList = (ListView) findViewById(R.id.menu_list);
 
-        // Set the adapter for the list view
+        // especificar ladaptador del listview lateral
         DrawerAdapter adp = new DrawerAdapter(this,R.layout.drawer_list_item, options);
         mDrawerList.setAdapter(adp);
         this.mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -72,33 +71,24 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.ic_menu_white_24dp, R.string.open_drawer,
                 R.string.close_drawer) {
 
-            /**
-             * Called when a drawer has settled in a completely closed state.
-             */
             public void onDrawerClosed(View view) {
                 getSupportActionBar().setTitle(mTitle);
-                // creates call to onPrepareOptionsMenu()
                 supportInvalidateOptionsMenu();
             }
 
-            /**
-             * Called when a drawer has settled in a completely open state.
-             */
             public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle("Choose one option");
-                // creates call to onPrepareOptionsMenu()
                 supportInvalidateOptionsMenu();
             }
         };
 
-        // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(drawerToggle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
 
-        // LLISTAT LLIBRES PER TITOL
+        // Llistat de llibres per titol
         bookData = new BookData(this);
         bookData.open();
         List<Book> values = bookData.getAllBooks();
@@ -106,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         View v = inflater.inflate(R.layout.list_view_home,null);
         titlesListView = (ListView) v.findViewById(R.id.books_list);
         MenuAdapter adapter2 = new MenuAdapter(this, R.layout.list_view_row_item, values);
-        //set the adapter
+        //Set the adapter
         titlesListView.setAdapter(adapter2);
         booksAuthorFrame.addView(v);
         bookData.close();
@@ -120,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /** Swaps fragments in the main content view */
     private void selectItem(int position) {
 
         String opcioMenu = options[position];
@@ -132,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 View v = inflater.inflate(R.layout.list_view_home,null);
                 titlesListView = (ListView) v.findViewById(R.id.books_list);
                 MenuAdapter adapter2 = new MenuAdapter(this, R.layout.list_view_row_item, values);
-                //set the adapter
                 titlesListView.setAdapter(adapter2);
                 FrameLayout frame = (FrameLayout) findViewById(R.id.content_frame);
                 frame.removeAllViews();
@@ -145,20 +133,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "Books of one author":
                 booksAuthorFrame.removeAllViews();
-                // OMPLIR SPINNER
                 bookData.open();
                 List<String> authors = bookData.getAllAuthors();
                 LayoutInflater inflater2 = getLayoutInflater();
                 booksAuthorView = inflater2.inflate(R.layout.books_author_view, null);
                 Spinner spinner = (Spinner) booksAuthorView.findViewById(R.id.spinner);
                 dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, authors);
-                // Drop down layout style - list view with radio button
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // attaching data adapter to spinner
                 spinner.setAdapter(dataAdapter);
-                // SET SPINNER SELECTED LISTENER
                 spinner.setOnItemSelectedListener(new SpinnerItemSelectedListener());
-
 
                 booksExpandableView = inflater2.inflate(R.layout.expandable_list_view, null);
                 ExpandableListView expandableListView = (ExpandableListView) booksExpandableView.findViewById(R.id.books_author_expandable_list_view);
@@ -179,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                // Listview Group expanded listener
                 expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
                     @Override
@@ -190,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                // Listview Group collasped listener
                 expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
 
                     @Override
@@ -210,9 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "Change my evaluation":
                 booksAuthorFrame.removeAllViews();
-                // OMPLIR SPINNER
                 bookData.open();
-                //List<String> titles = bookData.getAllTitles();
                 List<Book> books = bookData.getAllBooks();
                 LayoutInflater inflater3 = getLayoutInflater();
                 changeEvaluationView = inflater3.inflate(R.layout.change_evaluation_view, null);
@@ -222,11 +201,6 @@ public class MainActivity extends AppCompatActivity {
                 adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner2.setAdapter(adp);
 
-                //dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, titles);
-                // Drop down layout style - list view with radio button
-                //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // attaching data adapter to spinner
-                // SET SPINNER SELECTED LISTENER
                 spinner2.setOnItemSelectedListener(new SpinnerChangeEvaluationItemSelectedListener());
                 ImageButton imageButton = (ImageButton) changeEvaluationView.findViewById(R.id.save_book);
                 imageButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(imageButton));
@@ -238,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
         mTitle = opcioMenu;
         mDrawerLayout.closeDrawer(mDrawerList);
@@ -297,14 +270,51 @@ public class MainActivity extends AppCompatActivity {
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
+    // Nota : han de ser botons als que no sels hi hagi canviat el ID
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.save_book:
-                SampleDialog sd = SampleDialog.newInstance("Alert dialog",et.getText().toString(),bookId);
+                SampleDialog sd = SampleDialog.newInstance("Are you sure you want to modify your book's evaluation?",et.getText().toString(),bookId);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 sd.show(transaction,"Alert");
                 break;
         }
+
+    }
+
+    public void getBookInfo(View view){
+        BookData bookData2 = new BookData(this);
+        bookData2.open();
+        Book book = bookData2.getBook(view.getId());
+        bookData2.close();
+        Toast toast = Toast.makeText(this, book.toString() + "\n" + book.getCategory() + "\n" + book.getPersonal_evaluation() + "\n" + book.getPublisher() + "\n" + book.getYear(), Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    public void editBook(View view){
+        mTitle = "Change my evaluation";
+        getSupportActionBar().setTitle(mTitle);
+        booksAuthorFrame.removeAllViews();
+        bookData.open();
+        List<Book> books = bookData.getAllBooks();
+        LayoutInflater inflater3 = getLayoutInflater();
+        changeEvaluationView = inflater3.inflate(R.layout.change_evaluation_view, null);
+        Spinner spinner2 = (Spinner) changeEvaluationView.findViewById(R.id.spinner_evaluation);
+
+        SpinnerAdapter adp = new SpinnerAdapter(this,R.layout.spinner_row_item,books);
+        adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adp);
+
+        int spinnerPosition = adp.getPosition(view.getId());
+        spinner2.setSelection(spinnerPosition);
+
+        spinner2.setOnItemSelectedListener(new SpinnerChangeEvaluationItemSelectedListener());
+        ImageButton imageButton = (ImageButton) changeEvaluationView.findViewById(R.id.save_book);
+        imageButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(imageButton));
+        booksAuthorFrame.addView(changeEvaluationView);
+    }
+
+    public void deleteBook(View view){
 
     }
 
@@ -364,13 +374,6 @@ public class MainActivity extends AppCompatActivity {
         }
         // Handle your other action bar items...
         return super.onOptionsItemSelected(item);
-    }
-
-    public void getBookInfo(View view){
-        Button b = (Button)view;
-        String buttonText = b.getText().toString();
-        Toast toast = Toast.makeText(this, buttonText, Toast.LENGTH_SHORT);
-        toast.show();
     }
 
 }

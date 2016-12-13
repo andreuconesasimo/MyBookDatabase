@@ -46,15 +46,19 @@ public class SampleDialog extends DialogFragment {
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setIcon(R.drawable.ic_warning_black_24dp);
         builder.setMessage(dialogMessage)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         BookData bookData = new BookData(getActivity());
                         bookData.open();
-                        bookData.updateBookEvaluation(bookId,evaluationText);
+                        int rowsAffected = bookData.updateBookEvaluation(bookId,evaluationText);
                         bookData.close();
-                        Toast.makeText(getActivity(), dialogMessage + " " + evaluationText + " " + bookId, Toast.LENGTH_SHORT).show();
-
+                        if (rowsAffected == 1){
+                            Toast.makeText(getActivity(), "Book's evaluation modified!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getActivity(), "Something went wrong. Try again.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

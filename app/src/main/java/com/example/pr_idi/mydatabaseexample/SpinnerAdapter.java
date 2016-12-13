@@ -40,4 +40,14 @@ public class SpinnerAdapter extends ArrayAdapter {
         convertView.setId((int) b.getId());
         return convertView;
     }
+
+    public int getPosition(long id) {
+        int position = 0;
+        for (int i = 0; i < bookList.size(); i++){
+            if (bookList.get(i).getId() == id) {
+                position = i;
+            }
+        }
+        return position;
+    }
 }
