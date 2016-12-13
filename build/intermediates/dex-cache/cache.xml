@@ -16,8 +16,17 @@
         jumboMode="true"
         optimize="true"
         revision="22.0.1"
-        sha1="7c56cf9a83465a9df68aec959742db36d55b597d">
+        sha1="bcab008e1019bf8545bcf458af8be46b38117cf7">
         <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_950beaf4e483a370ec7758ed39f39ef4208dad44\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="3e7f9226fa1253c064126f54d4a57bf156cf9950">
+        <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_6144400beeff2858704dea432af335dc6f023ad9\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -27,15 +36,6 @@
         revision="22.0.1"
         sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
         <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-22.2.1_b215c2b7ba286e7a120c35793812524516280739\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="4c678622ceab8ce76348dffa8fadfc241378d154">
-        <dex dex="C:\Users\Andreu\Desktop\MyBookDatabase\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_6144400beeff2858704dea432af335dc6f023ad9\classes.dex" />
     </item>
     <item
         is-multidex="true"
