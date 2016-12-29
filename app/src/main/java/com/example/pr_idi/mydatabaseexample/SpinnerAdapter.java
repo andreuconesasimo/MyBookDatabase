@@ -19,18 +19,20 @@ public class SpinnerAdapter extends ArrayAdapter {
     private Context context;
     private List<Book> bookList;
     private int resourceId;
+    private Activity activity;
 
-    public SpinnerAdapter(Context context, int resourceId, List<Book> bookList) {
+    public SpinnerAdapter(MainActivity mainActivity, Context context, int resourceId, List<Book> bookList) {
         super(context, resourceId, bookList);
         this.context = context;
         this.bookList = bookList;
         this.resourceId = resourceId;
+        this.activity = mainActivity;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView==null){
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            LayoutInflater inflater = activity.getLayoutInflater();
             convertView = inflater.inflate(resourceId, parent, false);
         }
 
