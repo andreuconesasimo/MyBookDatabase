@@ -46,7 +46,8 @@ public class SampleDialog extends DialogFragment {
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setIcon(R.drawable.ic_warning_black_24dp);
+        builder.setTitle("Change book's evaluation?");
+        builder.setIcon(R.drawable.ic_warning_white_24dp);
         builder.setMessage(dialogMessage)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
