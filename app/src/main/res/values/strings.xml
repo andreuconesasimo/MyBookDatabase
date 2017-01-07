@@ -15,4 +15,11 @@
     <string name="help_text_section4">Here you can see all the information of books written by one author. Using <i>the top spinner</i>, select the author and just underneath the app will show you all his/her books.</string>
     <string name="help_title_section5">Change my evaluation</string>
     <string name="help_text_section5">This section allows you to modify your evaluation of any book. Using <i>the top spinner</i>, select the book and just underneath the app will show you your evaluation on that book. Make the changes you desire and save them by pressing <i>the floppy disk button.</i></string>
+    <string-array name="evaluation_array">
+        <item>molt bo</item>
+        <item>bo</item>
+        <item>regular</item>
+        <item>dolent</item>
+        <item>molt dolent</item>
+    </string-array>
 </resources>

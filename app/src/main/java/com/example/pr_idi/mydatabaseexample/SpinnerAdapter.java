@@ -38,7 +38,21 @@ public class SpinnerAdapter extends ArrayAdapter {
 
         Book b = bookList.get(position);
         TextView tv = (TextView) convertView.findViewById(R.id.spinner_item_text);
-        tv.setText(b.toString());
+        tv.setText(b.getTitle());
+        convertView.setId((int) b.getId());
+        return convertView;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        if(convertView==null){
+            LayoutInflater inflater = activity.getLayoutInflater();
+            convertView = inflater.inflate(resourceId, parent, false);
+        }
+
+        Book b = bookList.get(position);
+        TextView tv = (TextView) convertView.findViewById(R.id.spinner_item_text);
+        tv.setText(b.getTitle());
         convertView.setId((int) b.getId());
         return convertView;
     }

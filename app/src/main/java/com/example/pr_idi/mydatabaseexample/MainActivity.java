@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
-    private EditText et;
     private long bookId;
     private Toolbar toolbar;
     private FrameLayout frame;
     private ArrayAdapter<String> dataAdapter;
+    private ArrayAdapter<CharSequence> adapterSpinnerEvaluation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -152,6 +152,12 @@ public class MainActivity extends AppCompatActivity {
                 adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner2.setAdapter(adp);
                 spinner2.setOnItemSelectedListener(new SpinnerChangeEvaluationItemSelectedListener());
+
+                Spinner evaluationView = (Spinner) changeEvaluationView.findViewById(R.id.valoracio);
+                adapterSpinnerEvaluation = ArrayAdapter.createFromResource(this, R.array.evaluation_array, android.R.layout.simple_spinner_item);
+                adapterSpinnerEvaluation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                evaluationView.setAdapter(adapterSpinnerEvaluation);
+
                 ImageButton imageButton = (ImageButton) changeEvaluationView.findViewById(R.id.save_book);
                 imageButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(imageButton));
                 frame.addView(changeEvaluationView);
@@ -181,10 +187,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             bookData.open();
-            EditText evaluation = (EditText) findViewById(R.id.text_area_evaluation);
+            //EditText evaluation = (EditText) findViewById(R.id.text_area_evaluation);
+            Spinner evaluation = (Spinner) findViewById(R.id.valoracio);
             String eva = bookData.getEvaluation(view.getId());
-            evaluation.setText(eva);
-            et = evaluation;
+            if (!eva.equals(null)){
+                int spinnerPosition = adapterSpinnerEvaluation.getPosition(eva);
+                evaluation.setSelection(spinnerPosition);
+            }
             bookId = view.getId();
             bookData.close();
         }
@@ -236,7 +245,9 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.save_book:
-                SampleDialog sd = SampleDialog.newInstance("Are you sure you want to modify your book's evaluation?",et.getText().toString(),bookId);
+                Spinner evaluation = (Spinner) findViewById(R.id.valoracio);
+                String text = evaluation.getSelectedItem().toString();
+                SampleDialog sd = SampleDialog.newInstance("Are you sure you want to modify your book's evaluation?",text,bookId);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 sd.show(transaction,"Alert");
                 break;
@@ -275,15 +286,18 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater3 = getLayoutInflater();
         changeEvaluationView = inflater3.inflate(R.layout.change_evaluation_view, null);
         Spinner spinner2 = (Spinner) changeEvaluationView.findViewById(R.id.spinner_evaluation);
-
         SpinnerAdapter adp = new SpinnerAdapter(this, this,R.layout.spinner_row_item,books);
         adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adp);
-
         int spinnerPosition = adp.getPosition(view.getId());
         spinner2.setSelection(spinnerPosition);
-
         spinner2.setOnItemSelectedListener(new SpinnerChangeEvaluationItemSelectedListener());
+
+        Spinner evaluationView = (Spinner) changeEvaluationView.findViewById(R.id.valoracio);
+        adapterSpinnerEvaluation = ArrayAdapter.createFromResource(this, R.array.evaluation_array, android.R.layout.simple_spinner_item);
+        adapterSpinnerEvaluation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        evaluationView.setAdapter(adapterSpinnerEvaluation);
+
         ImageButton imageButton = (ImageButton) changeEvaluationView.findViewById(R.id.save_book);
         imageButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(imageButton));
         bookData.close();

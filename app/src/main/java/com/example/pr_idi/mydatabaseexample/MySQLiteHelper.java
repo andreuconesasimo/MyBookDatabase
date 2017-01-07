@@ -52,7 +52,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1915);
         values.put(COLUMN_PUBLISHER, "Kurt Wolff");
         values.put(COLUMN_CATEGORY, "Novela");
-        values.put(COLUMN_PERSONAL_EVALUATION,"Historia inquietante, fantastica y profunda");
+        values.put(COLUMN_PERSONAL_EVALUATION,"molt bo");
         // Insert the new row, returning the primary key value of the new row
         long newRowId = database.insert(TABLE_BOOKS, null, values);
 
@@ -62,7 +62,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1605);
         values.put(COLUMN_PUBLISHER, "Francisco de Robles");
         values.put(COLUMN_CATEGORY, "Aventura");
-        values.put(COLUMN_PERSONAL_EVALUATION,"Muy entretenido");
+        values.put(COLUMN_PERSONAL_EVALUATION,"regular");
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
@@ -71,7 +71,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1922);
         values.put(COLUMN_PUBLISHER, "Sylvia Beach");
         values.put(COLUMN_CATEGORY, "Novela");
-        values.put(COLUMN_PERSONAL_EVALUATION,"Pasable");
+        values.put(COLUMN_PERSONAL_EVALUATION,"bo");
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
@@ -80,7 +80,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1876);
         values.put(COLUMN_PUBLISHER, "Pierre-Jules Hetzel");
         values.put(COLUMN_CATEGORY, "Guerra");
-        values.put(COLUMN_PERSONAL_EVALUATION,"Demasiado explicita");
+        values.put(COLUMN_PERSONAL_EVALUATION,"bo");
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
@@ -89,7 +89,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1925);
         values.put(COLUMN_PUBLISHER, "Verlag Die Schmiede");
         values.put(COLUMN_CATEGORY, "Filosofia");
-        values.put(COLUMN_PERSONAL_EVALUATION,"Muy interesante i predictiva sobre las catastrofes venideras");
+        values.put(COLUMN_PERSONAL_EVALUATION,"regular");
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
@@ -98,7 +98,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1926);
         values.put(COLUMN_PUBLISHER, "Kurt Wolff");
         values.put(COLUMN_CATEGORY, "Filosofia");
-        values.put(COLUMN_PERSONAL_EVALUATION,"Es un relato curioso, donde se hace incapié en la burocracia del poder gobernante, y como le cuesta a un forastero adaptarse y entender cómo funcionan las cosas en un lugar que no es el suyo pero al que quiere pertenecer.");
+        values.put(COLUMN_PERSONAL_EVALUATION,"molt dolent");
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
@@ -107,7 +107,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1916);
         values.put(COLUMN_PUBLISHER, "The Egoist");
         values.put(COLUMN_CATEGORY, "Autobiografia");
-        values.put(COLUMN_PERSONAL_EVALUATION,"En esta obra, Joyce empieza a mostrar una evolución estilística que culminará en su obra más famosa, Ulises. A través del estilo narrativo, empieza reflejando los balbuceos de Stephen cuando es un bebé, hasta terminar en cuidados monólogos del Dédalus universitario.");
+        values.put(COLUMN_PERSONAL_EVALUATION,"bo");
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
@@ -116,7 +116,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1872);
         values.put(COLUMN_PUBLISHER, "Pierre-Jules Hetzel");
         values.put(COLUMN_CATEGORY, "Aventura");
-        values.put(COLUMN_PERSONAL_EVALUATION,"Entiendo que en su momento debió ser el nova más, pero ha envejecido bastante mal. Personajes apenas desarrollados, fríos en ocasiones y estereotipados casi siempre.");
+        values.put(COLUMN_PERSONAL_EVALUATION,"molt bo");
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
@@ -125,7 +125,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1940);
         values.put(COLUMN_PUBLISHER, "Charles Scribner's Sons");
         values.put(COLUMN_CATEGORY, "Guerra");
-        values.put(COLUMN_PERSONAL_EVALUATION,"Esta novela es, por encima de todo, un alegato contra lo absurdo de la guerra, sobre lo ridículo de las posiciones entre los bandos, sobre el caos, la supervivencia, y sobre lo hondas que son las heridas, pero que, a pesar de todo, pueden llegar a cicatrizarse.");
+        values.put(COLUMN_PERSONAL_EVALUATION,"dolent");
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
@@ -134,7 +134,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_YEAR, 1925);
         values.put(COLUMN_PUBLISHER, "Charles Scribner's Sons");
         values.put(COLUMN_CATEGORY, "Novela");
-        values.put(COLUMN_PERSONAL_EVALUATION,"Una obra que retrata a la perfección el espíritu de los felices años veinte. Un ensayo disfrazado de novela en cuyo final creí apreciar cierta moraleja. Un relato corto -185 páginas- que, para considerarse leído y comprendido, debería leerse dos veces.");
+        values.put(COLUMN_PERSONAL_EVALUATION,"bo");
         newRowId = database.insert(TABLE_BOOKS, null, values);
     }
 
