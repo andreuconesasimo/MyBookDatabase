@@ -12,8 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_title"
-        android:layout_margin="20dp"
-        android:backgroundTint="#BBDEFB"
+        android:layout_margin="10dp"
         android:layout_span="2">
     </Spinner>
         </TableRow>
@@ -23,7 +22,7 @@
         android:id="@+id/valoracio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         >
     </Spinner>
 
@@ -34,7 +33,7 @@
         android:src="@drawable/ic_save_blue_24dp"
         android:onClick="onClick"
         android:background="@null"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         />
         </TableRow>
     </TableLayout>

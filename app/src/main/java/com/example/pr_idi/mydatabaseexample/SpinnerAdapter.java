@@ -2,6 +2,7 @@ package com.example.pr_idi.mydatabaseexample;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class SpinnerAdapter extends ArrayAdapter {
         Book b = bookList.get(position);
         TextView tv = (TextView) convertView.findViewById(R.id.spinner_item_text);
         tv.setText(b.getTitle());
+        tv.setTextColor(Color.WHITE);
         convertView.setId((int) b.getId());
         return convertView;
     }
@@ -53,6 +55,7 @@ public class SpinnerAdapter extends ArrayAdapter {
         Book b = bookList.get(position);
         TextView tv = (TextView) convertView.findViewById(R.id.spinner_item_text);
         tv.setText(b.getTitle());
+        tv.setTextColor(Color.WHITE);
         convertView.setId((int) b.getId());
         return convertView;
     }
