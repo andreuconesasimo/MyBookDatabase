@@ -21,7 +21,6 @@
                 android:padding="2dip"
                 android:layout_weight="1"
                 android:textColor="@color/colorDivider"
-
                 />
             <LinearLayout
                 android:orientation="horizontal"
@@ -30,15 +29,11 @@
                 android:layout_weight="1"
                 android:padding="4dip"
                 android:gravity="center_vertical">
-                <Button android:id="@+id/help_button1"
+                <ImageView android:id="@+id/help_image1"
                     android:layout_weight="1"
-                    android:layout_width="180dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:onClick="onClickHelp"
-                    android:text="@string/help_title_section1"
-                    android:textColor="@color/colorPrimaryLight"
-                    android:drawableTop="@drawable/ic_home_white_24dp"/>
+                    android:background="@drawable/ic_home_white_24dp"/>
                 <TextView
                     android:id="@+id/home_help_text"
                     android:layout_width="wrap_content"
@@ -57,15 +52,11 @@
                 android:layout_weight="1"
                 android:padding="4dip"
                 android:gravity="center_vertical">
-                <Button android:id="@+id/help_button2"
+                <ImageView android:id="@+id/help_image2"
                     android:layout_weight="1"
-                    android:layout_width="180dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:onClick="onClickHelp"
-                    android:text="@string/help_title_section2"
-                    android:textColor="@color/colorPrimaryLight"
-                    android:drawableTop="@drawable/ic_add_circle_white_24dp"/>
+                    android:background="@drawable/ic_add_circle_white_24dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,15 +73,11 @@
                 android:layout_weight="1"
                 android:padding="4dip"
                 android:gravity="center_vertical">
-                <Button android:id="@+id/help_button3"
+                <ImageView android:id="@+id/help_image3"
                     android:layout_weight="1"
-                    android:layout_width="180dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:onClick="onClickHelp"
-                    android:text="@string/help_title_section3"
-                    android:textColor="@color/colorPrimaryLight"
-                    android:drawableTop="@drawable/ic_delete_white_24dp"/>
+                    android:background="@drawable/ic_delete_white_24dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -107,15 +94,11 @@
                 android:layout_weight="1"
                 android:padding="4dip"
                 android:gravity="center_vertical">
-                <Button android:id="@+id/help_button4"
+                <ImageView android:id="@+id/help_image4"
                     android:layout_weight="1"
-                    android:layout_width="180dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:onClick="onClickHelp"
-                    android:text="@string/help_title_section4"
-                    android:textColor="@color/colorPrimaryLight"
-                    android:drawableTop="@drawable/ic_list_white_24dp"/>
+                    android:background="@drawable/ic_list_white_24dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -133,15 +116,11 @@
                 android:layout_weight="1"
                 android:padding="4dip"
                 android:gravity="center_vertical">
-                <Button android:id="@+id/help_button5"
+                <ImageView android:id="@+id/help_image5"
                     android:layout_weight="1"
-                    android:layout_width="180dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:onClick="onClickHelp"
-                    android:text="@string/help_title_section5"
-                    android:textColor="@color/colorPrimaryLight"
-                    android:drawableTop="@drawable/ic_edit_white_24dp"/>
+                    android:background="@drawable/ic_edit_white_24dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

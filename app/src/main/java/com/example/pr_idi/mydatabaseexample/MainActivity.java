@@ -13,20 +13,17 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -87,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         carregarVistaPrincipal();
     }
 
-    private void carregarVistaPrincipal(){
+    public void carregarVistaPrincipal(){
         if (bookData == null) bookData = new BookData(this);
         bookData.open();
         List<Book> values = bookData.getAllBooks();
@@ -99,6 +96,49 @@ public class MainActivity extends AppCompatActivity {
         frame = (FrameLayout) findViewById(R.id.content_frame);
         frame.removeAllViews();
         frame.addView(v);
+        bookData.close();
+    }
+
+    private void carregarVistaBooksAuthor(){
+        frame.removeAllViews();
+        bookData.open();
+        List<String> authors = bookData.getAllAuthors();
+        LayoutInflater inflater2 = getLayoutInflater();
+        booksAuthorView = inflater2.inflate(R.layout.books_author_view, null);
+        Spinner spinner = (Spinner) booksAuthorView.findViewById(R.id.spinner);
+        dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, authors);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        spinner.setOnItemSelectedListener(new SpinnerItemSelectedListener());
+        booksExpandableView = inflater2.inflate(R.layout.expandable_list_view, null);
+        ExpandableListView expandableListView = (ExpandableListView) booksExpandableView.findViewById(R.id.books_author_expandable_list_view);
+        ExpandableListAdapter listAdapter = new ExpandableListAdapter(getBaseContext(), listDataHeader, listDataChild);
+        expandableListView.setAdapter(listAdapter);
+        frame.addView(booksAuthorView);
+        frame.addView(booksExpandableView);
+        bookData.close();
+    }
+
+    private void carregarVistaChangeEvaluation(){
+        frame.removeAllViews();
+        bookData.open();
+        List<Book> books = bookData.getAllBooks();
+        LayoutInflater inflater3 = getLayoutInflater();
+        changeEvaluationView = inflater3.inflate(R.layout.change_evaluation_view, null);
+        Spinner spinner2 = (Spinner) changeEvaluationView.findViewById(R.id.spinner_evaluation);
+        SpinnerAdapter adp = new SpinnerAdapter(this,getApplicationContext(), R.layout.spinner_row_item, books);
+        adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adp);
+        spinner2.setOnItemSelectedListener(new SpinnerChangeEvaluationItemSelectedListener());
+
+        Spinner evaluationView = (Spinner) changeEvaluationView.findViewById(R.id.valoracio);
+        adapterSpinnerEvaluation = ArrayAdapter.createFromResource(this, R.array.evaluation_array, android.R.layout.simple_spinner_item);
+        adapterSpinnerEvaluation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        evaluationView.setAdapter(adapterSpinnerEvaluation);
+
+        ImageButton imageButton = (ImageButton) changeEvaluationView.findViewById(R.id.save_book);
+        imageButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(imageButton));
+        frame.addView(changeEvaluationView);
         bookData.close();
     }
 
@@ -123,45 +163,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.remove_book:
                 break;
             case R.id.books_of_one_author:
-                frame.removeAllViews();
-                bookData.open();
-                List<String> authors = bookData.getAllAuthors();
-                LayoutInflater inflater2 = getLayoutInflater();
-                booksAuthorView = inflater2.inflate(R.layout.books_author_view, null);
-                Spinner spinner = (Spinner) booksAuthorView.findViewById(R.id.spinner);
-                dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, authors);
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(dataAdapter);
-                spinner.setOnItemSelectedListener(new SpinnerItemSelectedListener());
-                booksExpandableView = inflater2.inflate(R.layout.expandable_list_view, null);
-                ExpandableListView expandableListView = (ExpandableListView) booksExpandableView.findViewById(R.id.books_author_expandable_list_view);
-                ExpandableListAdapter listAdapter = new ExpandableListAdapter(getBaseContext(), listDataHeader, listDataChild);
-                expandableListView.setAdapter(listAdapter);
-                frame.addView(booksAuthorView);
-                frame.addView(booksExpandableView);
-                bookData.close();
+                carregarVistaBooksAuthor();
                 break;
             case R.id.change_my_evaluation:
-                frame.removeAllViews();
-                bookData.open();
-                List<Book> books = bookData.getAllBooks();
-                LayoutInflater inflater3 = getLayoutInflater();
-                changeEvaluationView = inflater3.inflate(R.layout.change_evaluation_view, null);
-                Spinner spinner2 = (Spinner) changeEvaluationView.findViewById(R.id.spinner_evaluation);
-                SpinnerAdapter adp = new SpinnerAdapter(this,getApplicationContext(), R.layout.spinner_row_item, books);
-                adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner2.setAdapter(adp);
-                spinner2.setOnItemSelectedListener(new SpinnerChangeEvaluationItemSelectedListener());
-
-                Spinner evaluationView = (Spinner) changeEvaluationView.findViewById(R.id.valoracio);
-                adapterSpinnerEvaluation = ArrayAdapter.createFromResource(this, R.array.evaluation_array, android.R.layout.simple_spinner_item);
-                adapterSpinnerEvaluation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                evaluationView.setAdapter(adapterSpinnerEvaluation);
-
-                ImageButton imageButton = (ImageButton) changeEvaluationView.findViewById(R.id.save_book);
-                imageButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(imageButton));
-                frame.addView(changeEvaluationView);
-                bookData.close();
+                carregarVistaChangeEvaluation();
                 break;
             case R.id.help:
                 frame.removeAllViews();
@@ -187,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             bookData.open();
-            //EditText evaluation = (EditText) findViewById(R.id.text_area_evaluation);
             Spinner evaluation = (Spinner) findViewById(R.id.valoracio);
             String eva = bookData.getEvaluation(view.getId());
             if (!eva.equals(null)){
@@ -239,31 +243,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Will be called via the onClick attribute
-    // of the buttons in main.xml
-    // Nota : han de ser botons als que no sels hi hagi canviat el ID
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.save_book:
                 Spinner evaluation = (Spinner) findViewById(R.id.valoracio);
                 String text = evaluation.getSelectedItem().toString();
-                SampleDialog sd = SampleDialog.newInstance("Are you sure you want to modify your book's evaluation?",text,bookId);
+                SampleDialogEdit sde = SampleDialogEdit.newInstance("Are you sure you want to modify your book's evaluation?",text,bookId);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                sd.show(transaction,"Alert");
-                break;
-        }
-
-    }
-
-    public void onClickHelp (View v)
-    {
-        int id = v.getId ();
-        switch (id) {
-            case R.id.help_button1 :
-                Toast toast = Toast.makeText(this, "boto ajuda apretat", Toast.LENGTH_LONG);
-                toast.show();
-                break;
-            default:
+                sde.show(transaction,"Alert");
                 break;
         }
     }
@@ -305,7 +292,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deleteBook(View view){
-
+        SampleDialogDelete sdd = SampleDialogDelete.newInstance("Are you sure you want to delete the book?",view.getId());
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        sdd.show(transaction,"Alert");
+        carregarVistaPrincipal();
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
