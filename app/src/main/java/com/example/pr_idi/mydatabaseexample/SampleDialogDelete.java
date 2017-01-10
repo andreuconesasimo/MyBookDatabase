@@ -18,7 +18,6 @@ public class SampleDialogDelete extends DialogFragment {
     private String dialogMessage;
     private long bookId;
 
-    // arguments are handled through factory method with bundles for lifecycle maintenance
     public SampleDialogDelete(){
 
     }
@@ -40,7 +39,6 @@ public class SampleDialogDelete extends DialogFragment {
             bookId = bundle.getLong(BOOK_ID);
         }
 
-        // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Delete book?");
         builder.setIcon(R.drawable.ic_warning_white_24dp);
@@ -62,10 +60,10 @@ public class SampleDialogDelete extends DialogFragment {
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+
                     }
                 });
-        // Create the AlertDialog object and return it
+
         return builder.create();
     }
 }

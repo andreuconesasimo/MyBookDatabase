@@ -5,10 +5,7 @@ package com.example.pr_idi.mydatabaseexample;
  * Created by pr_idi on 10/11/16.
  */
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -54,7 +51,7 @@ public class BookData {
         List<Book> books = new ArrayList<>();
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
-                allColumns, null, null, null, null, null);
+                allColumns, null, null, null, null, "title COLLATE NOCASE");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -64,32 +61,21 @@ public class BookData {
         }
         cursor.close();
 
-        Collections.sort(books, new Comparator<Book>() {
-
-            public int compare(Book b1, Book b2) {
-                return b1.getTitle().compareTo(b2.getTitle());
-            }
-        });
-
         return books;
     }
 
     public List<String> getAllAuthors(){
         List<String> authors = new ArrayList<>();
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
-                authorColumn, null, null, null, null, null);
+        Cursor cursor = database.query(true,MySQLiteHelper.TABLE_BOOKS,
+                authorColumn, null, null, null, null, "author COLLATE NOCASE",null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            // AQUEST IF EVITA REPETICIONS --------- PPODRIA FER DISTINCT A LA QUERY________________
-            if (!authors.contains(cursor.getString(0))) {
-                authors.add(cursor.getString(0));
-            }
+            authors.add(cursor.getString(0));
             cursor.moveToNext();
         }
-        // make sure to close the cursor
         cursor.close();
-        Collections.sort(authors);
+
         return authors;
     }
 
@@ -108,7 +94,7 @@ public class BookData {
     public List<Book> getBooksPerAuthor(String author) {
         List<Book> books = new ArrayList<>();
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
-                allColumns, MySQLiteHelper.COLUMN_AUTHOR + " = '" + author+"'", null, null, null, null);
+                allColumns, MySQLiteHelper.COLUMN_AUTHOR + " = '" + author+"'", null, null, null, "title COLLATE NOCASE");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -116,15 +102,7 @@ public class BookData {
             books.add(book);
             cursor.moveToNext();
         }
-        // make sure to close the cursor
         cursor.close();
-
-        Collections.sort(books, new Comparator<Book>() {
-
-            public int compare(Book b1, Book b2) {
-                return b1.getTitle().compareTo(b2.getTitle());
-            }
-        });
 
         return books;
     }
@@ -136,7 +114,6 @@ public class BookData {
 
         cursor.moveToFirst();
         evaluation = cursor.getString(0);
-        // make sure to close the cursor
         cursor.close();
 
         return evaluation;

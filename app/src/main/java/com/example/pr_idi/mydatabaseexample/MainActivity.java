@@ -4,7 +4,10 @@ package com.example.pr_idi.mydatabaseexample;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -19,12 +22,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frame;
     private ArrayAdapter<String> dataAdapter;
     private ArrayAdapter<CharSequence> adapterSpinnerEvaluation;
+    private Boolean vistaPrincipal;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void carregarVistaPrincipal(){
+        mTitle = "Home";
+        getSupportActionBar().setTitle(mTitle);
+        vistaPrincipal = true;
         if (bookData == null) bookData = new BookData(this);
         bookData.open();
         List<Book> values = bookData.getAllBooks();
@@ -103,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void carregarVistaBooksAuthor(){
+        vistaPrincipal = false;
         frame.removeAllViews();
         bookData.open();
         List<String> authors = bookData.getAllAuthors();
@@ -123,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void carregarVistaChangeEvaluation(){
+        vistaPrincipal = false;
         frame.removeAllViews();
         bookData.open();
         List<Book> books = bookData.getAllBooks();
@@ -139,23 +146,37 @@ public class MainActivity extends AppCompatActivity {
         adapterSpinnerEvaluation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         evaluationView.setAdapter(adapterSpinnerEvaluation);
 
-        ImageButton imageButton = (ImageButton) changeEvaluationView.findViewById(R.id.save_book);
-        imageButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(imageButton));
         frame.addView(changeEvaluationView);
         bookData.close();
+    }
+
+    private void carregarVistaHelp(){
+        vistaPrincipal = false;
+        frame.removeAllViews();
+        LayoutInflater inflater4 = getLayoutInflater();
+        helpView = inflater4.inflate(R.layout.help,null);
+        frame.addView(helpView);
+    }
+
+    private void carregarVistaAbout(){
+        vistaPrincipal = false;
+        frame.removeAllViews();
+        LayoutInflater inflater5 = getLayoutInflater();
+        aboutView = inflater5.inflate(R.layout.about,null);
+        frame.addView(aboutView);
     }
 
     private class NavigationViewClickListener implements  NavigationView.OnNavigationItemSelectedListener{
         @Override
         public boolean onNavigationItemSelected(MenuItem menuItem) {
-            boolean resultat = true;
             mDrawerLayout.closeDrawers();
             selectItem(menuItem);
-            return resultat;
+            return true;
         }
     }
 
     private void carregarMyBooks() {
+        vistaPrincipal = false;
         bookData.open();
         List<Book> books = bookData.getAllBooks();
         bookData.close();
@@ -173,8 +194,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.add_book:
                 break;
-            /*case R.id.remove_book:
-                break;*/
             case R.id.my_books:
                 carregarMyBooks();
                 break;
@@ -185,16 +204,10 @@ public class MainActivity extends AppCompatActivity {
                 carregarVistaChangeEvaluation();
                 break;
             case R.id.help:
-                frame.removeAllViews();
-                LayoutInflater inflater4 = getLayoutInflater();
-                helpView = inflater4.inflate(R.layout.help,null);
-                frame.addView(helpView);
+                carregarVistaHelp();
                 break;
             case R.id.about:
-                frame.removeAllViews();
-                LayoutInflater inflater5 = getLayoutInflater();
-                aboutView = inflater5.inflate(R.layout.about,null);
-                frame.addView(aboutView);
+                carregarVistaAbout();
                 break;
             default:
                 break;
@@ -228,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            // On selecting a spinner item
             String author = parent.getItemAtPosition(position).toString();
             bookData.open();
             List<Book> authorBooks = bookData.getBooksPerAuthor(author);
@@ -238,11 +250,11 @@ public class MainActivity extends AppCompatActivity {
             for (Book b : authorBooks){
                 listDataHeader.add(b.getTitle());
                 List<String> bookInfo = new ArrayList<String>();
-                bookInfo.add(b.getCategory());
-                bookInfo.add(b.getPersonal_evaluation());
-                bookInfo.add(b.getPublisher());
-                bookInfo.add(String.valueOf(b.getYear()));
-                listDataChild.put(listDataHeader.get(i), bookInfo); // Header, Child data
+                bookInfo.add("Category: " + b.getCategory());
+                bookInfo.add("Evaluation: " + b.getPersonal_evaluation());
+                bookInfo.add("Publisher: " + b.getPublisher());
+                bookInfo.add("Year: " + String.valueOf(b.getYear()));
+                listDataChild.put(listDataHeader.get(i), bookInfo);
                 ++i;
             }
             ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.books_author_expandable_list_view);
@@ -276,11 +288,14 @@ public class MainActivity extends AppCompatActivity {
         bookData2.open();
         Book book = bookData2.getBook(view.getId());
         bookData2.close();
-        Toast toast = Toast.makeText(this, book.getTitle() + "\n" + book.getAuthor() + "\n" + book.getCategory() + "\n" + book.getPersonal_evaluation() + "\n" + book.getPublisher() + "\n" + book.getYear(), Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, "Title: " + book.getTitle() + "\n" + "Author: " + book.getAuthor() + "\n" + "Category: " + book.getCategory() + "\n" + "Evaluation: " + book.getPersonal_evaluation() + "\n" + "Publisher: " + book.getPublisher() + "\n" + "Year: " + book.getYear(), Toast.LENGTH_LONG);
+        toast.getView().setBackgroundResource(R.color.colorAccent);
+        toast.getView().setPadding(10,10,10,10);
         toast.show();
     }
 
     public void editBook(View view){
+        vistaPrincipal = false;
         mTitle = "Change my evaluation";
         getSupportActionBar().setTitle(mTitle);
         frame.removeAllViews();
@@ -301,8 +316,6 @@ public class MainActivity extends AppCompatActivity {
         adapterSpinnerEvaluation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         evaluationView.setAdapter(adapterSpinnerEvaluation);
 
-        ImageButton imageButton = (ImageButton) changeEvaluationView.findViewById(R.id.save_book);
-        imageButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(imageButton));
         bookData.close();
         frame.addView(changeEvaluationView);
     }
@@ -311,7 +324,6 @@ public class MainActivity extends AppCompatActivity {
         SampleDialogDelete sdd = SampleDialogDelete.newInstance("Are you sure you want to delete the book?",view.getId());
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         sdd.show(transaction,"Alert");
-        carregarVistaPrincipal();
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
@@ -322,8 +334,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    // Life cycle methods. Check whether it is necessary to reimplement them
-
     @Override
     protected void onPause() {
         bookData.close();
@@ -332,50 +342,53 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content
-        // view
-        //boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_search).setVisible(!drawerOpen);
-        //return super.onPrepareOptionsMenu(menu);
         return false;
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         drawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        // Called by the system when the device configuration changes while your
-        // activity is running
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle, if it returns
-        // true, then it has handled the app icon touch event
-        /*if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }*/
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
-        // Handle your other action bar items...
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!vistaPrincipal){
+            carregarVistaPrincipal();
+        }else{
+            new AlertDialog.Builder(this)
+                    .setTitle("Exit app?")
+                    .setMessage("Are you sure you want to exit?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            MainActivity.super.onBackPressed();
+                        }
+                    }).create().show();
+        }
     }
 
 }

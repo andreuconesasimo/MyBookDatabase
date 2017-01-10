@@ -33,25 +33,17 @@ public class MenuAdapter extends ArrayAdapter<Book> {
             convertView = inflater.inflate(layoutResourceId, parent, false);
         }
 
-        // object item based on the position
         Book book = data.get(position);
-
         Button button = (Button) convertView.findViewById(R.id.title_button);
         if (button != null) {
             button.setText(book.getTitle());
             button.setId((int) book.getId());
-            button.setOnTouchListener(new ButtonHighlighterOnTouchListener(button));
         }
         ImageButton editButton = (ImageButton) convertView.findViewById(R.id.edit_book);
-        if (editButton != null) {
-            editButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(editButton));
-            editButton.setId((int) book.getId());
-        }
+        if (editButton != null) editButton.setId((int) book.getId());
         ImageButton deleteButton = (ImageButton) convertView.findViewById(R.id.delete_book);
-        if (deleteButton != null) {
-            deleteButton.setOnTouchListener(new ImageButtonHighlighterOnTouchListener(deleteButton));
-            deleteButton.setId((int) book.getId());
-        }
+        if (deleteButton != null) deleteButton.setId((int) book.getId());
+
         return convertView;
     }
 
