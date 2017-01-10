@@ -11,9 +11,9 @@
     <string name="help_text_section2">In this section of the app you can add new books to your database.</string>
     <string name="help_title_section3">Remove book</string>
     <string name="help_text_section3">In this section of the app you can delete any book of your database.</string>
-    <string name="help_title_section4">Books of one author</string>
+    <string name="help_title_section4">Books by author</string>
     <string name="help_text_section4">Here you can see all the information of books written by one author. Using <i>the top spinner</i>, select the author and just underneath the app will show you all his/her books.</string>
-    <string name="help_title_section5">Change my evaluation</string>
+    <string name="help_title_section5">Change review</string>
     <string name="help_text_section5">This section allows you to modify your evaluation of any book. Using <i>the top spinner</i>, select the book and just underneath the app will show you your evaluation on that book. Make the changes you desire and save them by pressing <i>the floppy disk button.</i></string>
     <string-array name="evaluation_array">
         <item>molt bo</item>

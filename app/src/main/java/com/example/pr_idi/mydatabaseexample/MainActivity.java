@@ -173,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.add_book:
                 break;
-            case R.id.remove_book:
-                break;
+            /*case R.id.remove_book:
+                break;*/
             case R.id.my_books:
                 carregarMyBooks();
                 break;
