@@ -3,7 +3,7 @@
     <string name="open_drawer">Drawer abierto</string>
     <string name="close_drawer">Drawer cerrado</string>
     <string name="spinner_title">Choose one author</string>
-    <string name="about"><b>MyBooksDatabase 1.0</b>\nCopyright 2016\nAnd123 Inc.\n<i>All rights reserved.</i></string>
+    <string name="about"><b>MyBooksDatabase 1.0</b>\nCopyright 2016\nAnd123 Inc.\nCarlos Marchal\nAndreu Conesa\nFIB IDI QT 2016\n<i>All rights reserved.</i></string>
     <string name="help_page_intro">Here you will find information on the different parts of the app.</string>
     <string name="help_title_section1">Home</string>
     <string name="help_text_section1">In the homepage you can see the data of each book by pressing <i>the title button</i>. You can also edit any evaluation by pressing <i>the pencil button</i> and delete any book by pressing <i>the recycle bin button.</i></string>
