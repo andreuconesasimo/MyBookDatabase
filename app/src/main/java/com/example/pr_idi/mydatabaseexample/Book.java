@@ -73,10 +73,6 @@ public class Book {
         this.personal_evaluation = personal_evaluation;
     }
 
-    // Will be used by the ArrayAdapter in the ListView
-    // Note that it only produces the title and the author
-    // Extra information should be created by modifying this
-    // method or by adding the methods required
     @Override
     public String toString() {
         return String.format("%s - %s", title, author);

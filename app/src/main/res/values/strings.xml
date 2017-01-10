@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">My Books Database</string>
-    <string name="open_drawer">Drawer abierto</string>
-    <string name="close_drawer">Drawer cerrado</string>
+    <string name="open_drawer">Drawer opened</string>
+    <string name="close_drawer">Drawer closed</string>
     <string name="spinner_title">Choose one author</string>
     <string name="about"><b>MyBooksDatabase 1.0</b>\nCopyright 2016\nAnd123 Inc.\nCarlos Marchal\nAndreu Conesa\nFIB IDI QT 2016\n<i>All rights reserved.</i></string>
     <string name="help_page_intro">Here you will find information on the different parts of the app.</string>
@@ -9,12 +9,10 @@
     <string name="help_text_section1">In the homepage you can see the data of each book by pressing <i>the title button</i>. You can also edit any evaluation by pressing <i>the pencil button</i> and delete any book by pressing <i>the recycle bin button.</i></string>
     <string name="help_title_section2">Add book</string>
     <string name="help_text_section2">In this section of the app you can add new books to your database.</string>
-    <string name="help_title_section3">Remove book</string>
-    <string name="help_text_section3">In this section of the app you can delete any book of your database.</string>
     <string name="help_title_section4">Books by author</string>
     <string name="help_text_section4">Here you can see all the information of books written by one author. Using <i>the top spinner</i>, select the author and just underneath the app will show you all his/her books.</string>
     <string name="help_title_section5">Change review</string>
-    <string name="help_text_section5">This section allows you to modify your evaluation of any book. Using <i>the top spinner</i>, select the book and just underneath the app will show you your evaluation on that book. Make the changes you desire and save them by pressing <i>the floppy disk button.</i></string>
+    <string name="help_text_section5">This section allows you to modify your evaluation of any book. Using <i>the top spinner</i>, select the book and just underneath the app will show you your evaluation on that book. Change the review on the bottom spinner and save it by pressing <i>the floppy disk button.</i></string>
     <string-array name="evaluation_array">
         <item>molt bo</item>
         <item>bo</item>

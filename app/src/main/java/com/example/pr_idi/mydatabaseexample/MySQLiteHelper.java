@@ -45,7 +45,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
 
         database.execSQL(DATABASE_CREATE);
-        // Create a new map of values, where column names are the keys
+
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, "Metamorphosis");
         values.put(COLUMN_AUTHOR, "Kafka");
@@ -53,7 +53,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_PUBLISHER, "Kurt Wolff");
         values.put(COLUMN_CATEGORY, "Novela");
         values.put(COLUMN_PERSONAL_EVALUATION,"molt bo");
-        // Insert the new row, returning the primary key value of the new row
         long newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
@@ -84,7 +83,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
-        values.put(COLUMN_TITLE, "El proceso");
+        values.put(COLUMN_TITLE, "el proceso");
         values.put(COLUMN_AUTHOR, "Kafka");
         values.put(COLUMN_YEAR, 1925);
         values.put(COLUMN_PUBLISHER, "Verlag Die Schmiede");
