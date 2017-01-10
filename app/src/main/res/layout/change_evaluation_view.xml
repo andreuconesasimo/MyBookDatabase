@@ -30,7 +30,7 @@
         android:id="@+id/save_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_save_blue_24dp"
+        android:src="@drawable/ic_save_white_24dp"
         android:onClick="onClick"
         android:background="@null"
         android:layout_margin="10dp"

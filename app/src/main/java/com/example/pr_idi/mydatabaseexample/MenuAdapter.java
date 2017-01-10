@@ -36,7 +36,6 @@ public class MenuAdapter extends ArrayAdapter<Book> {
         // object item based on the position
         Book book = data.get(position);
 
-        // get the TextView and then set the text (item name) and tag (item ID) values
         Button button = (Button) convertView.findViewById(R.id.title_button);
         if (button != null) {
             button.setText(book.getTitle());
