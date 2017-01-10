@@ -15,10 +15,6 @@
             android:icon="@drawable/ic_add_circle_white_24dp"
             android:title="Add book"/>
         <item
-            android:id="@+id/remove_book"
-            android:icon="@drawable/ic_delete_white_24dp"
-            android:title="Remove book"/>
-        <item
             android:id="@+id/books_of_one_author"
             android:icon="@drawable/ic_list_white_24dp"
             android:title="Books of one author"/>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -33,5 +34,33 @@
         android:layout_below="@+id/author_text_view"
         android:layout_alignStart="@+id/author_text_view"
         android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_below="@+id/cat_text_view"
+        android:id="@+id/view"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/year_text_view"
+        android:layout_above="@+id/view"
+        android:layout_alignEnd="@+id/book_details_delete" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/book_details_delete"
+        android:src="@drawable/ic_delete_white_24dp"
+        android:layout_alignTop="@+id/title_text_view"
+        android:layout_alignEnd="@+id/view"
+        android:layout_above="@+id/year_text_view"
+        android:clickable="true"/>
 
 </RelativeLayout>

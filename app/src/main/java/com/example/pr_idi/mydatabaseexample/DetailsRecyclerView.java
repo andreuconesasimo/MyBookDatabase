@@ -55,6 +55,8 @@ public class DetailsRecyclerView extends RecyclerView {
             ((TextView) holder.fields.findViewById(R.id.title_text_view)).setText(books.get(position).getTitle());
             ((TextView) holder.fields.findViewById(R.id.author_text_view)).setText(books.get(position).getAuthor());
             ((TextView) holder.fields.findViewById(R.id.cat_text_view)).setText(books.get(position).getCategory());
+            String extra = books.get(position).getPublisher() + ", " + books.get(position).getYear();
+            ((TextView) holder.fields.findViewById(R.id.year_text_view)).setText(extra);
         }
 
         @Override
