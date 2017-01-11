@@ -20,10 +20,15 @@ import java.util.List;
 
 public class DetailsRecyclerView extends RecyclerView {
     private List<Book> books;
+    private BookData bookData;
 
-    public DetailsRecyclerView(Context context, List<Book> books) {
+    public DetailsRecyclerView(Context context, BookData bookData) {
         super(context);
-        this.books = new ArrayList<>(books);
+        this.bookData = bookData;
+        bookData.open();
+        this.books = new ArrayList<>(bookData.getAllBooks());
+        bookData.close();
+
         Collections.sort(this.books, new Comparator<Book>() {
             @Override
             public int compare(Book book1, Book book2) {
@@ -51,12 +56,21 @@ public class DetailsRecyclerView extends RecyclerView {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             ((TextView) holder.fields.findViewById(R.id.title_text_view)).setText(books.get(position).getTitle());
             ((TextView) holder.fields.findViewById(R.id.author_text_view)).setText(books.get(position).getAuthor());
             ((TextView) holder.fields.findViewById(R.id.cat_text_view)).setText(books.get(position).getCategory());
             String extra = books.get(position).getPublisher() + ", " + books.get(position).getYear();
             ((TextView) holder.fields.findViewById(R.id.year_text_view)).setText(extra);
+            holder.fields.findViewById(R.id.book_details_delete).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    bookData.open();
+                    bookData.deleteBook(books.get(holder.getAdapterPosition()).getId());
+                    bookData.close();
+                    books.remove(holder.getAdapterPosition());
+                }
+            });
         }
 
         @Override

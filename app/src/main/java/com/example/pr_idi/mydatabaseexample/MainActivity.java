@@ -177,13 +177,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void carregarMyBooks() {
         vistaPrincipal = false;
-        bookData.open();
-        List<Book> books = bookData.getAllBooks();
-        bookData.close();
-
         frame = (FrameLayout) findViewById(R.id.content_frame);
         frame.removeAllViews();
-        frame.addView(new DetailsRecyclerView(this, books));
+        frame.addView(new DetailsRecyclerView(this, bookData));
     }
 
     private void selectItem(MenuItem menuItem) {
