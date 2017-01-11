@@ -83,7 +83,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         newRowId = database.insert(TABLE_BOOKS, null, values);
 
         values = new ContentValues();
-        values.put(COLUMN_TITLE, "el proceso");
+        values.put(COLUMN_TITLE, "El proceso");
         values.put(COLUMN_AUTHOR, "Kafka");
         values.put(COLUMN_YEAR, 1925);
         values.put(COLUMN_PUBLISHER, "Verlag Die Schmiede");

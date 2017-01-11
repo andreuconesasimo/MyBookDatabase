@@ -136,4 +136,16 @@ public class BookData {
         cursor.close();
         return book;
     }
+
+    public void addBook(Book book) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_AUTHOR, book.getAuthor());
+        values.put(MySQLiteHelper.COLUMN_CATEGORY, book.getCategory());
+        values.put(MySQLiteHelper.COLUMN_ID, book.getId());
+        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, book.getPersonal_evaluation());
+        values.put(MySQLiteHelper.COLUMN_PUBLISHER, book.getPublisher());
+        values.put(MySQLiteHelper.COLUMN_TITLE, book.getTitle());
+        values.put(MySQLiteHelper.COLUMN_YEAR, book.getYear());
+        database.insert(MySQLiteHelper.TABLE_BOOKS, null, values);
+    }
 }

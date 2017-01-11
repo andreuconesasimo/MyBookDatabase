@@ -4,7 +4,10 @@ package com.example.pr_idi.mydatabaseexample;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -24,9 +27,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> dataAdapter;
     private ArrayAdapter<CharSequence> adapterSpinnerEvaluation;
     private Boolean vistaPrincipal;
+    private Activity mainActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
         carregarVistaPrincipal();
+        mainActivity = this;
     }
 
     public void carregarVistaPrincipal(){
@@ -189,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 carregarVistaPrincipal();
                 break;
             case R.id.add_book:
+                carregatVistaAfegir();
                 break;
             case R.id.my_books:
                 carregarMyBooks();
@@ -210,6 +220,37 @@ public class MainActivity extends AppCompatActivity {
         }
         mTitle = menuItem.getTitle().toString();
         getSupportActionBar().setTitle(mTitle);
+    }
+
+    private void carregatVistaAfegir() {
+        vistaPrincipal = false;
+        frame = (FrameLayout) findViewById(R.id.content_frame);
+        frame.removeAllViews();
+        final View addBook = getLayoutInflater().inflate(R.layout.add_book, null);
+        frame.addView(addBook);
+        ((Button) addBook.findViewById(R.id.add_submit)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Book book = new Book();
+                book.setId(UUID.randomUUID().getLeastSignificantBits());
+                book.setAuthor(((EditText)addBook.findViewById(R.id.add_autor)).getText().toString());
+                book.setCategory(((EditText)addBook.findViewById(R.id.add_category)).getText().toString());
+                book.setPublisher(((EditText)addBook.findViewById(R.id.add_publisher)).getText().toString());
+                book.setTitle(((EditText)addBook.findViewById(R.id.add_title)).getText().toString());
+                book.setPersonal_evaluation(Ratings.toText(((RatingBar)addBook.findViewById(R.id.add_rating)).getRating()));
+                String year = ((EditText)addBook.findViewById(R.id.add_year)).getText().toString();
+                if (book.getAuthor().isEmpty() || book.getTitle().isEmpty() || year.isEmpty() ||
+                        book.getCategory().isEmpty() || book.getPublisher().isEmpty()) {
+                    Toast.makeText(addBook.getContext(), "All fields must be filled!", Toast.LENGTH_SHORT).show();
+                } else {
+                    book.setYear(Integer.valueOf(year));
+                    bookData.open();
+                    bookData.addBook(book);
+                    bookData.close();
+                    mainActivity.onBackPressed();
+                }
+            }
+        });
     }
 
     private class SpinnerChangeEvaluationItemSelectedListener implements Spinner.OnItemSelectedListener{

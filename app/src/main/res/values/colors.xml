@@ -7,4 +7,5 @@
     <color name="textPrimary">#212121</color>
     <color name="textSecondary">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="snackbarBack">#78909c</color>
 </resources>
