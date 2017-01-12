@@ -4,7 +4,6 @@ package com.example.pr_idi.mydatabaseexample;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import android.app.Activity;
@@ -18,8 +17,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,10 +28,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -97,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         carregarVistaPrincipal();
         mainActivity = this;
     }
+
 
     public void carregarVistaPrincipal(){
         mTitle = "Home";
@@ -259,12 +257,11 @@ public class MainActivity extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             bookData.open();
             Spinner evaluation = (Spinner) findViewById(R.id.valoracio);
-            String eva = bookData.getEvaluation(view.getId());
-            if (!eva.equals(null)){
-                int spinnerPosition = adapterSpinnerEvaluation.getPosition(eva);
-                evaluation.setSelection(spinnerPosition);
-            }
-            bookId = view.getId();
+            Book selected = (Book) parent.getItemAtPosition(position);
+            String eva = bookData.getEvaluation(selected.getId());
+            int spinnerPosition = adapterSpinnerEvaluation.getPosition(eva);
+            evaluation.setSelection(spinnerPosition);
+            bookId = selected.getId();
             bookData.close();
         }
 
@@ -320,18 +317,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void getBookInfo(View view){
-        BookData bookData2 = new BookData(this);
-        bookData2.open();
-        Book book = bookData2.getBook(view.getId());
-        bookData2.close();
-        Toast toast = Toast.makeText(this, "Title: " + book.getTitle() + "\n" + "Author: " + book.getAuthor() + "\n" + "Category: " + book.getCategory() + "\n" + "Evaluation: " + book.getPersonal_evaluation() + "\n" + "Publisher: " + book.getPublisher() + "\n" + "Year: " + book.getYear(), Toast.LENGTH_LONG);
-        toast.getView().setBackgroundResource(R.color.colorAccent);
-        toast.getView().setPadding(10,10,10,10);
-        toast.show();
-    }
-
-    public void editBook(View view){
+    public void editBook(long bookId){
         vistaPrincipal = false;
         mTitle = "Change my evaluation";
         getSupportActionBar().setTitle(mTitle);
@@ -344,7 +330,9 @@ public class MainActivity extends AppCompatActivity {
         SpinnerAdapter adp = new SpinnerAdapter(this, this,R.layout.spinner_row_item,books);
         adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adp);
-        int spinnerPosition = adp.getPosition(view.getId());
+
+        Book b = bookData.getBook(bookId);
+        int spinnerPosition = adp.getPosition(b.getId());
         spinner2.setSelection(spinnerPosition);
         spinner2.setOnItemSelectedListener(new SpinnerChangeEvaluationItemSelectedListener());
 
@@ -355,12 +343,6 @@ public class MainActivity extends AppCompatActivity {
 
         bookData.close();
         frame.addView(changeEvaluationView);
-    }
-
-    public void deleteBook(View view){
-        SampleDialogDelete sdd = SampleDialogDelete.newInstance("Are you sure you want to delete the book?",view.getId());
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        sdd.show(transaction,"Alert");
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them

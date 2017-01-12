@@ -31,7 +31,7 @@ public class SpinnerAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView==null){
             LayoutInflater inflater = activity.getLayoutInflater();
             convertView = inflater.inflate(resourceId, parent, false);
@@ -41,12 +41,11 @@ public class SpinnerAdapter extends ArrayAdapter {
         TextView tv = (TextView) convertView.findViewById(R.id.spinner_item_text);
         tv.setText(b.getTitle());
         tv.setTextColor(Color.WHITE);
-        convertView.setId((int) b.getId());
         return convertView;
     }
 
     @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+    public View getDropDownView(final int position, View convertView, ViewGroup parent) {
         if(convertView==null){
             LayoutInflater inflater = activity.getLayoutInflater();
             convertView = inflater.inflate(resourceId, parent, false);
@@ -56,7 +55,6 @@ public class SpinnerAdapter extends ArrayAdapter {
         TextView tv = (TextView) convertView.findViewById(R.id.spinner_item_text);
         tv.setText(b.getTitle());
         tv.setTextColor(Color.WHITE);
-        convertView.setId((int) b.getId());
         return convertView;
     }
 

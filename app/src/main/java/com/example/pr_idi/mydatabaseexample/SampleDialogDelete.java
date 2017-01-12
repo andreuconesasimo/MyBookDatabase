@@ -50,9 +50,10 @@ public class SampleDialogDelete extends DialogFragment {
                         int rowsAffected = bookData.deleteBook(bookId);
                         bookData.close();
                         if (rowsAffected == 1){
-                            Toast.makeText(getActivity(), "Book was deleted successfully.", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(getActivity(), "Something went wrong. Try again.", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(getActivity(), "Book was deleted successfully.", Toast.LENGTH_SHORT);
+                            toast.getView().setBackgroundResource(R.color.colorAccent);
+                            toast.getView().setPadding(10,10,10,10);
+                            toast.show();
                         }
                         MainActivity callingActivity = (MainActivity) getActivity();
                         callingActivity.carregarVistaPrincipal();
